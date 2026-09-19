@@ -11,81 +11,137 @@
 
 <body>
 
-    <header>
-        <h1>🧵 Tailor Price Calculator</h1>
-        <p>Calculate tailoring charges quickly and easily</p>
+    <header class="top-header">
+
+        <div class="brand">
+            <div class="brand-icon">🧵</div>
+
+            <div>
+                <h1>Tailor Price Calculator</h1>
+                <p>Simple • Fast • Accurate</p>
+            </div>
+        </div>
+
     </header>
 
 
-    <main>
+    <main class="container">
 
-        <!-- Services Section -->
-        <section class="services">
+        <!-- SERVICES -->
 
-            <h2>Tailoring Services</h2>
+        <section class="services-section">
+
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">SERVICES</span>
+                    <h2>Tailoring Services</h2>
+                </div>
+
+                <span class="service-count">6 Services</span>
+            </div>
+
 
             <div class="service-list">
 
                 <div class="service">
-                    <div>
-                        <h3>Saree Fall + Blouse</h3>
-                        <p>With lining</p>
-                        <strong>₹350</strong>
+
+                    <div class="service-info">
+                        <div class="service-icon">👗</div>
+
+                        <div>
+                            <h3>Saree Fall + Blouse</h3>
+                            <p>With lining</p>
+                            <strong>₹350</strong>
+                        </div>
                     </div>
 
-                    <button>+</button>
+                    <button class="add-button" aria-label="Add service">+</button>
+
                 </div>
 
 
                 <div class="service">
-                    <div>
-                        <h3>Saree Fall + Blouse</h3>
-                        <p>Without lining</p>
-                        <strong>₹250</strong>
+
+                    <div class="service-info">
+                        <div class="service-icon">👗</div>
+
+                        <div>
+                            <h3>Saree Fall + Blouse</h3>
+                            <p>Without lining</p>
+                            <strong>₹250</strong>
+                        </div>
                     </div>
 
-                    <button>+</button>
+                    <button class="add-button" aria-label="Add service">+</button>
+
                 </div>
 
 
                 <div class="service">
-                    <div>
-                        <h3>Saree Fall Only</h3>
-                        <strong>₹50</strong>
+
+                    <div class="service-info">
+                        <div class="service-icon">🧵</div>
+
+                        <div>
+                            <h3>Saree Fall Only</h3>
+                            <p>Fall stitching</p>
+                            <strong>₹50</strong>
+                        </div>
                     </div>
 
-                    <button>+</button>
+                    <button class="add-button" aria-label="Add service">+</button>
+
                 </div>
 
 
                 <div class="service">
-                    <div>
-                        <h3>Cotton Blouse</h3>
-                        <strong>₹100</strong>
+
+                    <div class="service-info">
+                        <div class="service-icon">👚</div>
+
+                        <div>
+                            <h3>Cotton Blouse</h3>
+                            <p>Blouse stitching</p>
+                            <strong>₹100</strong>
+                        </div>
                     </div>
 
-                    <button>+</button>
+                    <button class="add-button" aria-label="Add service">+</button>
+
                 </div>
 
 
                 <div class="service">
-                    <div>
-                        <h3>Dress</h3>
-                        <strong>₹500</strong>
+
+                    <div class="service-info">
+                        <div class="service-icon">👗</div>
+
+                        <div>
+                            <h3>Dress</h3>
+                            <p>Dress stitching</p>
+                            <strong>₹500</strong>
+                        </div>
                     </div>
 
-                    <button>+</button>
+                    <button class="add-button" aria-label="Add service">+</button>
+
                 </div>
 
 
                 <div class="service">
-                    <div>
-                        <h3>Lehenga / Langa Vani</h3>
-                        <p>With lining</p>
-                        <strong>₹750</strong>
+
+                    <div class="service-info">
+                        <div class="service-icon">✨</div>
+
+                        <div>
+                            <h3>Lehenga / Langa Vani</h3>
+                            <p>With lining</p>
+                            <strong>₹750</strong>
+                        </div>
                     </div>
 
-                    <button>+</button>
+                    <button class="add-button" aria-label="Add service">+</button>
+
                 </div>
 
             </div>
@@ -93,31 +149,74 @@
         </section>
 
 
-        <!-- Bill Section -->
-        <section class="bill">
+        <!-- BILL -->
+
+        <section class="bill-section">
 
             <div class="bill-header">
-                <h2>Current Bill</h2>
 
-                <button id="clearButton">
+                <div>
+                    <span class="eyebrow">RECEIPT</span>
+                    <h2>Current Bill</h2>
+                </div>
+
+                <button id="clearButton" class="clear-button">
                     Clear All
                 </button>
+
+            </div>
+
+
+            <div class="customer-box">
+
+                <label for="customerName">
+                    Customer Name
+                </label>
+
+                <input
+                    type="text"
+                    id="customerName"
+                    placeholder="Enter customer name"
+                >
+
             </div>
 
 
             <div id="billItems">
 
-                <p class="empty-message">
-                    No services selected yet.
-                </p>
+                <div class="empty-state">
+
+                    <div class="empty-icon">🧾</div>
+
+                    <h3>No services selected</h3>
+
+                    <p>
+                        Add a service to start creating the bill.
+                    </p>
+
+                </div>
 
             </div>
 
 
-            <div class="total">
-                <span>Total Amount</span>
-                <strong id="totalAmount">₹0</strong>
+            <div class="bill-summary">
+
+                <div class="summary-row">
+                    <span>Total Items</span>
+                    <strong id="totalItems">0</strong>
+                </div>
+
+                <div class="total-row">
+                    <span>Total Amount</span>
+                    <strong id="totalAmount">₹0</strong>
+                </div>
+
             </div>
+
+
+            <button id="printButton" class="print-button">
+                🧾 Print Bill
+            </button>
 
         </section>
 
@@ -125,11 +224,17 @@
 
 
     <footer>
-        <p>🧵 Tailor Price Calculator</p>
-        <p>Works on mobile, tablet and desktop</p>
+
+        <div>
+            <strong>🧵 Tailor Price Calculator</strong>
+            <p>Professional tailoring bill calculator</p>
+        </div>
+
+        <p>Works on mobile & desktop</p>
+
     </footer>
 
-    
+
     <script src="script.js"></script>
 
 </body>
