@@ -219,7 +219,120 @@
             </button>
 
         </section>
+<section class="income-section">
 
+    <div class="income-header">
+
+        <div>
+            <span class="eyebrow">PRIVATE</span>
+            <h2>Income Manager 🔒</h2>
+        </div>
+
+        <button id="lockIncomeButton" class="lock-button">
+            🔒 Lock
+        </button>
+
+    </div>
+
+
+    <!-- LOCKED STATE -->
+
+    <div id="incomeLocked">
+
+        <div class="income-lock-icon">
+            🔐
+        </div>
+
+        <h3>Income records are locked</h3>
+
+        <p>
+            Your monthly income is protected with a password.
+        </p>
+
+        <button id="unlockIncomeButton" class="unlock-button">
+            Unlock Income
+        </button>
+
+    </div>
+
+
+    <!-- PASSWORD AREA -->
+
+    <div id="incomePasswordBox" class="password-box hidden">
+
+        <label for="incomePassword">
+            Income Password
+        </label>
+
+        <input
+            type="password"
+            id="incomePassword"
+            placeholder="Enter your password"
+            autocomplete="off"
+        >
+
+        <button id="confirmPasswordButton" class="unlock-button">
+            Unlock
+        </button>
+
+        <p id="passwordMessage"></p>
+
+    </div>
+
+
+    <!-- INCOME CONTENT -->
+
+    <div id="incomeContent" class="hidden">
+
+        <div class="income-month">
+
+            <label for="incomeMonth">
+                Select Month
+            </label>
+
+            <input
+                type="month"
+                id="incomeMonth"
+            >
+
+        </div>
+
+
+        <div class="income-total-card">
+
+            <span>Monthly Income</span>
+
+            <strong id="monthlyIncome">
+                ₹0
+            </strong>
+
+            <small id="incomeEntryCount">
+                0 entries
+            </small>
+
+        </div>
+
+
+        <div class="income-actions">
+
+            <button id="addIncomeButton">
+                + Add Income
+            </button>
+
+        </div>
+
+
+        <div id="incomeEntries">
+
+            <div class="income-empty">
+                No income recorded for this month.
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
     </main>
 
 
