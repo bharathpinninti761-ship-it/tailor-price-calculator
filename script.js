@@ -184,4 +184,3 @@ clearButton.addEventListener("click", () => {
     updateBill();
 
 });
-```
