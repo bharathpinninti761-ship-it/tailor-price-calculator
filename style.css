@@ -1,0 +1,287 @@
+```css
+/* ================================
+   GENERAL
+================================ */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f7f7fb;
+    color: #202642;
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+header {
+    background: linear-gradient(135deg, #ffffff, #f2efff);
+    text-align: center;
+    padding: 35px 20px;
+    border-bottom: 1px solid #e5e5ef;
+}
+
+header h1 {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: #666;
+    font-size: 17px;
+}
+
+
+/* ================================
+   MAIN LAYOUT
+================================ */
+
+main {
+    max-width: 1200px;
+    margin: 35px auto;
+    padding: 0 20px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+
+/* ================================
+   SECTIONS
+================================ */
+
+.services,
+.bill {
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+}
+
+.services h2,
+.bill h2 {
+    margin-bottom: 20px;
+    font-size: 25px;
+}
+
+
+/* ================================
+   SERVICE CARD
+================================ */
+
+.service {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border: 1px solid #e5e5ef;
+    border-radius: 14px;
+
+    padding: 18px;
+    margin-bottom: 15px;
+
+    transition: 0.2s;
+}
+
+.service:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.service h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.service p {
+    color: #777;
+    margin-bottom: 7px;
+}
+
+.service strong {
+    font-size: 20px;
+}
+
+
+/* ================================
+   ADD BUTTON
+================================ */
+
+.service button {
+    width: 45px;
+    height: 45px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #38a169;
+    color: white;
+
+    font-size: 25px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.service button:hover {
+    background: #2f855a;
+    transform: scale(1.05);
+}
+
+
+/* ================================
+   BILL HEADER
+================================ */
+
+.bill-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+#clearButton {
+    border: none;
+    background: #ffe7e7;
+    color: #d63031;
+
+    padding: 9px 14px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+#clearButton:hover {
+    background: #ffd2d2;
+}
+
+
+/* ================================
+   BILL ITEMS
+================================ */
+
+.bill-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid #eee;
+}
+
+.bill-item-info h3 {
+    font-size: 16px;
+}
+
+.bill-item-info p {
+    color: #777;
+    font-size: 14px;
+}
+
+
+/* ================================
+   EMPTY MESSAGE
+================================ */
+
+.empty-message {
+    text-align: center;
+    color: #888;
+
+    padding: 40px 10px;
+}
+
+
+/* ================================
+   TOTAL
+================================ */
+
+.total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 25px;
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    background: #f8efff;
+}
+
+.total span {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.total strong {
+    font-size: 28px;
+    color: #6b21a8;
+}
+
+
+/* ================================
+   FOOTER
+================================ */
+
+footer {
+    background: #202642;
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+
+    padding: 20px 40px;
+
+    margin-top: 40px;
+}
+
+footer p:last-child {
+    color: #bfc3d9;
+}
+
+
+/* ================================
+   MOBILE RESPONSIVE
+================================ */
+
+@media (max-width: 768px) {
+
+    header h1 {
+        font-size: 30px;
+    }
+
+    header p {
+        font-size: 15px;
+    }
+
+    main {
+        grid-template-columns: 1fr;
+        margin-top: 20px;
+    }
+
+    .services,
+    .bill {
+        padding: 18px;
+    }
+
+    footer {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+        padding: 20px;
+    }
+}
+```
