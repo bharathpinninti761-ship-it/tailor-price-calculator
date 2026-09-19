@@ -1,0 +1,138 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tailor Price Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>🧵 Tailor Price Calculator</h1>
+        <p>Calculate tailoring charges quickly and easily</p>
+    </header>
+
+
+    <main>
+
+        <!-- Services Section -->
+        <section class="services">
+
+            <h2>Tailoring Services</h2>
+
+            <div class="service-list">
+
+                <div class="service">
+                    <div>
+                        <h3>Saree Fall + Blouse</h3>
+                        <p>With lining</p>
+                        <strong>₹350</strong>
+                    </div>
+
+                    <button>+</button>
+                </div>
+
+
+                <div class="service">
+                    <div>
+                        <h3>Saree Fall + Blouse</h3>
+                        <p>Without lining</p>
+                        <strong>₹250</strong>
+                    </div>
+
+                    <button>+</button>
+                </div>
+
+
+                <div class="service">
+                    <div>
+                        <h3>Saree Fall Only</h3>
+                        <strong>₹50</strong>
+                    </div>
+
+                    <button>+</button>
+                </div>
+
+
+                <div class="service">
+                    <div>
+                        <h3>Cotton Blouse</h3>
+                        <strong>₹100</strong>
+                    </div>
+
+                    <button>+</button>
+                </div>
+
+
+                <div class="service">
+                    <div>
+                        <h3>Dress</h3>
+                        <strong>₹500</strong>
+                    </div>
+
+                    <button>+</button>
+                </div>
+
+
+                <div class="service">
+                    <div>
+                        <h3>Lehenga / Langa Vani</h3>
+                        <p>With lining</p>
+                        <strong>₹750</strong>
+                    </div>
+
+                    <button>+</button>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Bill Section -->
+        <section class="bill">
+
+            <div class="bill-header">
+                <h2>Current Bill</h2>
+
+                <button id="clearButton">
+                    Clear All
+                </button>
+            </div>
+
+
+            <div id="billItems">
+
+                <p class="empty-message">
+                    No services selected yet.
+                </p>
+
+            </div>
+
+
+            <div class="total">
+                <span>Total Amount</span>
+                <strong id="totalAmount">₹0</strong>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        <p>🧵 Tailor Price Calculator</p>
+        <p>Works on mobile, tablet and desktop</p>
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+```
