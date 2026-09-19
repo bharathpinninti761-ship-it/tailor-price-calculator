@@ -641,3 +641,330 @@ footer p {
         margin-top: 25px;
     }
 }
+/* =========================
+   INCOME MANAGER
+========================= */
+
+.income-section {
+    grid-column: 1 / -1;
+
+    background: white;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+
+    padding: 25px;
+
+    box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+}
+
+.income-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.lock-button {
+    border: none;
+
+    background: #fee2e2;
+    color: #b91c1c;
+
+    padding: 9px 14px;
+
+    border-radius: 9px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.lock-button:hover {
+    background: #fecaca;
+}
+
+
+/* LOCKED */
+
+#incomeLocked {
+    text-align: center;
+
+    padding: 30px 15px;
+
+    background: #f8fafc;
+
+    border-radius: 15px;
+}
+
+.income-lock-icon {
+    font-size: 45px;
+
+    margin-bottom: 10px;
+}
+
+#incomeLocked h3 {
+    margin-bottom: 6px;
+}
+
+#incomeLocked p {
+    color: #6b7280;
+
+    font-size: 14px;
+
+    margin-bottom: 18px;
+}
+
+
+/* PASSWORD */
+
+.password-box {
+    max-width: 400px;
+
+    margin: auto;
+
+    padding: 20px;
+
+    background: #f8fafc;
+
+    border-radius: 15px;
+}
+
+.password-box label {
+    display: block;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    margin-bottom: 7px;
+}
+
+.password-box input {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 9px;
+
+    font-size: 15px;
+
+    margin-bottom: 10px;
+
+    outline: none;
+}
+
+.password-box input:focus {
+    border-color: #f59e0b;
+
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12);
+}
+
+.password-box p {
+    color: #dc2626;
+
+    font-size: 13px;
+
+    margin-top: 8px;
+}
+
+
+/* UNLOCK */
+
+.unlock-button {
+    border: none;
+
+    background: #111827;
+
+    color: white;
+
+    padding: 11px 18px;
+
+    border-radius: 9px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.unlock-button:hover {
+    background: #f59e0b;
+
+    color: #111827;
+}
+
+
+/* INCOME CONTENT */
+
+.income-month {
+    margin-bottom: 20px;
+}
+
+.income-month label {
+    display: block;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    margin-bottom: 7px;
+}
+
+.income-month input {
+    padding: 10px 12px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 9px;
+
+    font-size: 15px;
+}
+
+
+/* TOTAL */
+
+.income-total-card {
+    background: #111827;
+
+    color: white;
+
+    padding: 22px;
+
+    border-radius: 15px;
+
+    margin-bottom: 18px;
+}
+
+.income-total-card span {
+    display: block;
+
+    color: #cbd5e1;
+
+    font-size: 14px;
+}
+
+.income-total-card strong {
+    display: block;
+
+    color: #fbbf24;
+
+    font-size: 32px;
+
+    margin: 5px 0;
+}
+
+.income-total-card small {
+    color: #94a3b8;
+}
+
+
+/* ADD INCOME */
+
+.income-actions {
+    margin-bottom: 15px;
+}
+
+#addIncomeButton {
+    border: none;
+
+    background: #f59e0b;
+
+    color: #111827;
+
+    padding: 11px 16px;
+
+    border-radius: 9px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+#addIncomeButton:hover {
+    background: #d97706;
+
+    color: white;
+}
+
+
+/* ENTRIES */
+
+.income-entry {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 15px;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 11px;
+
+    margin-bottom: 9px;
+}
+
+.income-entry-date {
+    font-size: 13px;
+
+    color: #6b7280;
+
+    margin-top: 3px;
+}
+
+.income-entry-amount {
+    font-weight: bold;
+
+    color: #111827;
+}
+
+.income-delete {
+    border: none;
+
+    background: transparent;
+
+    color: #9ca3af;
+
+    cursor: pointer;
+
+    margin-left: 15px;
+}
+
+.income-delete:hover {
+    color: #dc2626;
+}
+
+.income-empty {
+    text-align: center;
+
+    color: #6b7280;
+
+    padding: 25px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .income-section {
+        padding: 18px;
+    }
+
+    .income-header {
+        align-items: flex-start;
+    }
+
+    .income-total-card strong {
+        font-size: 28px;
+    }
+
+}
