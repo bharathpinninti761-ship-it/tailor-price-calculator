@@ -16,6 +16,298 @@ const supabaseClient =
 
 console.log("☁️ Supabase connected");
 // ================================
+// 🔐 WEBSITE LOGIN
+// ================================
+
+let currentUser = null;
+
+const loginOverlay = document.createElement("div");
+
+loginOverlay.id = "loginOverlay";
+
+loginOverlay.innerHTML = `
+    <div class="login-box">
+
+        <div class="login-icon">🧵</div>
+
+        <h1>Tailoring Studio</h1>
+
+        <p class="login-subtitle">
+            Secure Login
+        </p>
+
+        <input
+            type="email"
+            id="loginEmail"
+            placeholder="Email address"
+            autocomplete="email"
+        >
+
+        <input
+            type="password"
+            id="loginPassword"
+            placeholder="Password"
+            autocomplete="current-password"
+        >
+
+        <button id="loginButton">
+            🔐 Login
+        </button>
+
+        <p id="loginMessage"></p>
+
+    </div>
+`;
+
+document.body.appendChild(loginOverlay);
+
+
+// ================================
+// LOGIN STYLES
+// ================================
+
+const loginStyle = document.createElement("style");
+
+loginStyle.textContent = `
+    #loginOverlay {
+        position: fixed;
+        inset: 0;
+        background: #f8fafc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 999999;
+        padding: 20px;
+    }
+
+    .login-box {
+        width: 100%;
+        max-width: 400px;
+        background: white;
+        padding: 35px;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+        text-align: center;
+    }
+
+    .login-icon {
+        font-size: 45px;
+        margin-bottom: 10px;
+    }
+
+    .login-box h1 {
+        margin: 0;
+        color: #111827;
+        font-size: 28px;
+    }
+
+    .login-subtitle {
+        color: #6b7280;
+        margin: 8px 0 25px;
+    }
+
+    .login-box input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 14px;
+        margin-bottom: 14px;
+        border: 1px solid #d1d5db;
+        border-radius: 10px;
+        font-size: 16px;
+        outline: none;
+    }
+
+    .login-box input:focus {
+        border-color: #f59e0b;
+    }
+
+    #loginButton {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 10px;
+        background: #f59e0b;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    #loginButton:hover {
+        background: #d97706;
+    }
+
+    #loginMessage {
+        min-height: 20px;
+        margin-top: 15px;
+        font-size: 14px;
+        color: #dc2626;
+    }
+`;
+
+document.head.appendChild(loginStyle);
+
+
+// ================================
+// CHECK EXISTING LOGIN
+// ================================
+
+async function checkSupabaseLogin() {
+
+    const {
+        data,
+        error
+    } = await supabaseClient.auth.getUser();
+
+    if (error) {
+
+        console.error(
+            "Authentication check failed:",
+            error
+        );
+
+        return;
+
+    }
+
+    currentUser = data.user;
+
+    if (currentUser) {
+
+        console.log(
+            "🔐 Logged in as:",
+            currentUser.email
+        );
+
+        loginOverlay.style.display = "none";
+
+    } else {
+
+        console.log(
+            "🔒 No user logged in"
+        );
+
+        loginOverlay.style.display = "flex";
+
+    }
+
+}
+
+
+// ================================
+// LOGIN BUTTON
+// ================================
+
+document
+    .getElementById("loginButton")
+    .addEventListener(
+        "click",
+        async () => {
+
+            const email =
+                document
+                    .getElementById("loginEmail")
+                    .value
+                    .trim();
+
+            const password =
+                document
+                    .getElementById("loginPassword")
+                    .value;
+
+            const message =
+                document
+                    .getElementById("loginMessage");
+
+            if (!email || !password) {
+
+                message.textContent =
+                    "Please enter email and password.";
+
+                return;
+
+            }
+
+            const button =
+                document
+                    .getElementById("loginButton");
+
+            button.disabled = true;
+            button.textContent = "Logging in...";
+
+            message.textContent = "";
+
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+
+
+            if (error) {
+
+                console.error(
+                    "Login failed:",
+                    error
+                );
+
+                message.textContent =
+                    error.message;
+
+                button.disabled = false;
+                button.textContent = "🔐 Login";
+
+                return;
+
+            }
+
+
+            currentUser = data.user;
+
+            console.log(
+                "🔐 Login successful:",
+                currentUser.email
+            );
+
+            loginOverlay.style.display = "none";
+
+            button.disabled = false;
+            button.textContent = "🔐 Login";
+
+        }
+    );
+
+
+// ================================
+// ENTER KEY LOGIN
+// ================================
+
+document
+    .getElementById("loginPassword")
+    .addEventListener(
+        "keydown",
+        event => {
+
+            if (event.key === "Enter") {
+
+                document
+                    .getElementById("loginButton")
+                    .click();
+
+            }
+
+        }
+    );
+
+
+// Start authentication check
+
+checkSupabaseLogin();
+// ================================
 // SUPABASE AUTHENTICATION
 // ================================
 
