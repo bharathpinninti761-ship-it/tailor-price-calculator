@@ -1,40 +1,58 @@
 // ================================
+// COMPATIBLE ID GENERATOR
+// ================================
+
+function generateId() {
+
+    if (
+        window.crypto &&
+        typeof window.crypto.randomUUID === "function"
+    ) {
+        return window.generateId();
+    }
+
+    return (
+        Date.now().toString(36) +
+        Math.random().toString(36).substring(2)
+    );
+}
+// ================================
 // TAILORING SERVICES
 // ================================
 
 const DEFAULT_SERVICES = [
     {
-        id: crypto.randomUUID(),
+        id: generateId(),
         name: "Saree Fall + Blouse",
         description: "With lining",
         price: 350
     },
     {
-        id: crypto.randomUUID(),
+        id: generateId(),
         name: "Saree Fall + Blouse",
         description: "Without lining",
         price: 250
     },
     {
-        id: crypto.randomUUID(),
+        id: generateId(),
         name: "Saree Fall Only",
         description: "Fall stitching",
         price: 50
     },
     {
-        id: crypto.randomUUID(),
+        id: generateId(),
         name: "Cotton Blouse",
         description: "Blouse stitching",
         price: 100
     },
     {
-        id: crypto.randomUUID(),
+        id: generateId(),
         name: "Dress",
         description: "Dress stitching",
         price: 500
     },
     {
-        id: crypto.randomUUID(),
+        id: generateId(),
         name: "Lehenga / Langa Vani",
         description: "With lining",
         price: 750
@@ -551,7 +569,7 @@ function saveManagedService() {
     } else {
 
         services.push({
-            id: crypto.randomUUID(),
+            id: generateId(),
             name: name,
             description: description,
             price: price
@@ -1888,7 +1906,7 @@ addIncomeButton.addEventListener(
         incomeData.push({
 
             id:
-                crypto.randomUUID(),
+                generateId(),
 
             date:
                 new Date()
@@ -2017,7 +2035,7 @@ saveBillAsIncome.addEventListener(
         incomeData.push({
 
             id:
-                crypto.randomUUID(),
+                generateId(),
 
             date:
                 new Date()
