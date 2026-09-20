@@ -1,58 +1,48 @@
 // ================================
-// COMPATIBLE ID GENERATOR
-// ================================
-
-function generateId() {
-
-    if (
-        window.crypto &&
-        typeof window.crypto.randomUUID === "function"
-    ) {
-        return window.generateId();
-    }
-
-    return (
-        Date.now().toString(36) +
-        Math.random().toString(36).substring(2)
-    );
-}
-// ================================
 // TAILORING SERVICES
 // ================================
 
+function generateId() {
+    if (window.crypto && typeof window.crypto.randomUUID === "function") {
+        return window.crypto.randomUUID();
+    }
+
+    return Date.now().toString(36) + Math.random().toString(36).substring(2);
+}
+
 const DEFAULT_SERVICES = [
     {
-        id: generateId(),
+        id: "default-1",
         name: "Saree Fall + Blouse",
         description: "With lining",
         price: 350
     },
     {
-        id: generateId(),
+        id: "default-2",
         name: "Saree Fall + Blouse",
         description: "Without lining",
         price: 250
     },
     {
-        id: generateId(),
+        id: "default-3",
         name: "Saree Fall Only",
         description: "Fall stitching",
         price: 50
     },
     {
-        id: generateId(),
+        id: "default-4",
         name: "Cotton Blouse",
         description: "Blouse stitching",
         price: 100
     },
     {
-        id: generateId(),
+        id: "default-5",
         name: "Dress",
         description: "Dress stitching",
         price: 500
     },
     {
-        id: generateId(),
+        id: "default-6",
         name: "Lehenga / Langa Vani",
         description: "With lining",
         price: 750
@@ -63,34 +53,35 @@ const SERVICES_STORAGE_KEY = "tailoringStudioServices";
 
 let services = [];
 
-function loadServices() {
-    const savedServices =
-        localStorage.getItem(SERVICES_STORAGE_KEY);
-
-    if (!savedServices) {
-        services = DEFAULT_SERVICES;
-        saveServices();
-        return;
-    }
-
-    try {
-        services = JSON.parse(savedServices);
-
-        if (!Array.isArray(services) || services.length === 0) {
-            services = DEFAULT_SERVICES;
-            saveServices();
-        }
-    } catch (error) {
-        services = DEFAULT_SERVICES;
-        saveServices();
-    }
-}
-
 function saveServices() {
     localStorage.setItem(
         SERVICES_STORAGE_KEY,
         JSON.stringify(services)
     );
+}
+
+function loadServices() {
+    const saved = localStorage.getItem(SERVICES_STORAGE_KEY);
+
+    if (!saved) {
+        services = DEFAULT_SERVICES.map(service => ({ ...service }));
+        saveServices();
+        return;
+    }
+
+    try {
+        const parsed = JSON.parse(saved);
+
+        if (Array.isArray(parsed) && parsed.length > 0) {
+            services = parsed;
+        } else {
+            services = DEFAULT_SERVICES.map(service => ({ ...service }));
+            saveServices();
+        }
+    } catch (error) {
+        services = DEFAULT_SERVICES.map(service => ({ ...service }));
+        saveServices();
+    }
 }
 
 
@@ -110,207 +101,78 @@ let cart = [];
 
 
 // ================================
-// SERVICE LIST
+// MAIN SERVICE LIST
 // ================================
 
 const serviceListContainer =
-    document.querySelector(".services-list") ||
     document.getElementById("servicesList") ||
-    document.getElementById("serviceList");
+    document.querySelector(".services-list");
 
 function renderServices() {
 
     if (!serviceListContainer) {
-        console.error("Service list container not found.");
+        console.error("Services container not found.");
         return;
     }
 
     serviceListContainer.innerHTML = "";
 
-    services.forEach((service) => {
+    services.forEach(service => {
 
-        const serviceCard =
-            document.createElement("div");
-
+        const serviceCard = document.createElement("div");
         serviceCard.className = "service";
 
-
-        const serviceInfo =
-            document.createElement("div");
-
+        const serviceInfo = document.createElement("div");
         serviceInfo.className = "service-info";
 
-
-        const serviceIcon =
-            document.createElement("div");
-
+        const serviceIcon = document.createElement("div");
         serviceIcon.className = "service-icon";
-
         serviceIcon.textContent = "🧵";
 
+        const details = document.createElement("div");
 
-        const serviceDetails =
-            document.createElement("div");
+        const name = document.createElement("h3");
+        name.textContent = service.name;
 
+        const description = document.createElement("p");
+        description.textContent = service.description || "";
 
-        const serviceName =
-            document.createElement("h3");
+        const price = document.createElement("strong");
+        price.textContent = `₹${service.price}`;
 
-        serviceName.textContent =
-            service.name;
+        details.appendChild(name);
+        details.appendChild(description);
+        details.appendChild(price);
 
+        serviceInfo.appendChild(serviceIcon);
+        serviceInfo.appendChild(details);
 
-        const serviceDescription =
-            document.createElement("p");
-
-        serviceDescription.textContent =
-            service.description || "";
-
-
-        const servicePrice =
-            document.createElement("strong");
-
-        servicePrice.textContent =
-            `₹${service.price}`;
-
-
-        serviceDetails.appendChild(
-            serviceName
-        );
-
-        serviceDetails.appendChild(
-            serviceDescription
-        );
-
-        serviceDetails.appendChild(
-            servicePrice
-        );
-
-
-        serviceInfo.appendChild(
-            serviceIcon
-        );
-
-        serviceInfo.appendChild(
-            serviceDetails
-        );
-
-
-        const addButton =
-            document.createElement("button");
-
-        addButton.className =
-            "add-button";
-
-        addButton.setAttribute(
-            "aria-label",
-            `Add ${service.name}`
-        );
-
-        addButton.textContent = "+";
-
-
-        addButton.addEventListener(
-            "click",
-            () => addServiceToBill(service)
-        );
-
-
-        serviceCard.appendChild(
-            serviceInfo
-        );
-
-        serviceCard.appendChild(
-            addButton
-        );
-
-
-        serviceListContainer.appendChild(
-            serviceCard
-        );
-
-    });
-}
-
-    serviceListContainer.innerHTML = "";
-
-    services.forEach((service) => {
-
-        const serviceCard =
-            document.createElement("div");
-
-        serviceCard.className = "service-card";
-
-        const serviceInfo =
-            document.createElement("div");
-
-        serviceInfo.className = "service-info";
-
-        const serviceName =
-            document.createElement("h3");
-
-        serviceName.textContent =
-            service.name;
-
-        const serviceDescription =
-            document.createElement("p");
-
-        serviceDescription.textContent =
-            service.description || "";
-
-        const servicePrice =
-            document.createElement("strong");
-
-        servicePrice.textContent =
-            `₹${service.price}`;
-
-        serviceInfo.appendChild(serviceName);
-        serviceInfo.appendChild(serviceDescription);
-        serviceInfo.appendChild(servicePrice);
-
-
-        const addButton =
-            document.createElement("button");
-
+        const addButton = document.createElement("button");
         addButton.className = "add-button";
+        addButton.setAttribute("aria-label", `Add ${service.name}`);
         addButton.textContent = "+";
 
-        addButton.title =
-            `Add ${service.name}`;
-
-        addButton.addEventListener(
-            "click",
-            () => addServiceToBill(service)
-        );
-
+        addButton.addEventListener("click", () => {
+            addServiceToBill(service);
+        });
 
         serviceCard.appendChild(serviceInfo);
         serviceCard.appendChild(addButton);
-
         serviceListContainer.appendChild(serviceCard);
     });
 }
 
-
-// ================================
-// ADD SERVICE TO BILL
-// ================================
-
 function addServiceToBill(service) {
 
-    const existingItem =
-        cart.find(
-            item =>
-                item.name === service.name &&
-                item.description === service.description
-        );
+    const existingItem = cart.find(item =>
+        item.name === service.name &&
+        item.description === service.description &&
+        Number(item.price) === Number(service.price)
+    );
 
     if (existingItem) {
-
         existingItem.quantity++;
-
     } else {
-
         cart.push({
             ...service,
             quantity: 1
@@ -325,64 +187,33 @@ function addServiceToBill(service) {
 // SERVICE MANAGER
 // ================================
 
-const addServiceButton =
-    document.getElementById("addServiceButton");
-
-const serviceFormBox =
-    document.getElementById("serviceFormBox");
-
-const serviceFormTitle =
-    document.getElementById("serviceFormTitle");
-
-const serviceNameInput =
-    document.getElementById("serviceName");
-
-const serviceDescriptionInput =
-    document.getElementById("serviceDescription");
-
-const servicePriceInput =
-    document.getElementById("servicePrice");
-
-const cancelServiceButton =
-    document.getElementById("cancelServiceButton");
-
-const saveServiceButton =
-    document.getElementById("saveServiceButton");
-
-const managedServicesList =
-    document.getElementById("managedServicesList");
+const addServiceButton = document.getElementById("addServiceButton");
+const serviceFormBox = document.getElementById("serviceFormBox");
+const serviceFormTitle = document.getElementById("serviceFormTitle");
+const serviceNameInput = document.getElementById("serviceName");
+const serviceDescriptionInput = document.getElementById("serviceDescription");
+const servicePriceInput = document.getElementById("servicePrice");
+const cancelServiceButton = document.getElementById("cancelServiceButton");
+const saveServiceButton = document.getElementById("saveServiceButton");
+const managedServicesList = document.getElementById("managedServicesList");
 
 let editingServiceId = null;
 
-
 function openServiceForm(service = null) {
+
+    if (!serviceFormBox) return;
 
     serviceFormBox.classList.remove("hidden");
 
     if (service) {
-
-        editingServiceId =
-            service.id;
-
-        serviceFormTitle.textContent =
-            "Edit Service";
-
-        serviceNameInput.value =
-            service.name;
-
-        serviceDescriptionInput.value =
-            service.description || "";
-
-        servicePriceInput.value =
-            service.price;
-
+        editingServiceId = service.id;
+        serviceFormTitle.textContent = "Edit Service";
+        serviceNameInput.value = service.name;
+        serviceDescriptionInput.value = service.description || "";
+        servicePriceInput.value = service.price;
     } else {
-
         editingServiceId = null;
-
-        serviceFormTitle.textContent =
-            "Add New Service";
-
+        serviceFormTitle.textContent = "Add New Service";
         serviceNameInput.value = "";
         serviceDescriptionInput.value = "";
         servicePriceInput.value = "";
@@ -391,29 +222,23 @@ function openServiceForm(service = null) {
     serviceNameInput.focus();
 }
 
-
 function closeServiceForm() {
 
     editingServiceId = null;
 
-    serviceFormBox.classList.add("hidden");
-
-    serviceNameInput.value = "";
-    serviceDescriptionInput.value = "";
-    servicePriceInput.value = "";
+    if (serviceFormBox) serviceFormBox.classList.add("hidden");
+    if (serviceNameInput) serviceNameInput.value = "";
+    if (serviceDescriptionInput) serviceDescriptionInput.value = "";
+    if (servicePriceInput) servicePriceInput.value = "";
 }
-
 
 function renderManagedServices() {
 
-    if (!managedServicesList) {
-        return;
-    }
+    if (!managedServicesList) return;
 
     managedServicesList.innerHTML = "";
 
     if (services.length === 0) {
-
         managedServicesList.innerHTML = `
             <div class="empty-state">
                 <div class="empty-icon">🧵</div>
@@ -421,146 +246,78 @@ function renderManagedServices() {
                 <p>Add your first tailoring service.</p>
             </div>
         `;
-
         return;
     }
 
-
     services.forEach(service => {
 
-        const item =
-            document.createElement("div");
+        const item = document.createElement("div");
+        item.className = "managed-service-item";
 
-        item.className =
-            "managed-service-item";
+        const info = document.createElement("div");
+        info.className = "managed-service-info";
 
+        const name = document.createElement("strong");
+        name.textContent = service.name;
 
-        const info =
-            document.createElement("div");
+        const description = document.createElement("span");
+        description.textContent = service.description || "No description";
 
-        info.className =
-            "managed-service-info";
-
-
-        const name =
-            document.createElement("strong");
-
-        name.textContent =
-            service.name;
-
-
-        const description =
-            document.createElement("span");
-
-        description.textContent =
-            service.description ||
-            "No description";
-
-
-        const price =
-            document.createElement("span");
-
-        price.className =
-            "managed-service-price";
-
-        price.textContent =
-            `₹${service.price}`;
-
+        const price = document.createElement("span");
+        price.className = "managed-service-price";
+        price.textContent = `₹${service.price}`;
 
         info.appendChild(name);
         info.appendChild(description);
         info.appendChild(price);
 
+        const actions = document.createElement("div");
+        actions.className = "managed-service-actions";
 
-        const actions =
-            document.createElement("div");
+        const editButton = document.createElement("button");
+        editButton.className = "secondary-button";
+        editButton.type = "button";
+        editButton.textContent = "✏️ Edit";
+        editButton.addEventListener("click", () => openServiceForm(service));
 
-        actions.className =
-            "managed-service-actions";
-
-
-        const editButton =
-            document.createElement("button");
-
-        editButton.className =
-            "secondary-button";
-
-        editButton.textContent =
-            "✏️ Edit";
-
-        editButton.addEventListener(
-            "click",
-            () => openServiceForm(service)
-        );
-
-
-        const deleteButton =
-            document.createElement("button");
-
-        deleteButton.className =
-            "secondary-button";
-
-        deleteButton.textContent =
-            "🗑️ Delete";
-
-        deleteButton.addEventListener(
-            "click",
-            () => deleteService(service.id)
-        );
-
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "secondary-button";
+        deleteButton.type = "button";
+        deleteButton.textContent = "🗑️ Delete";
+        deleteButton.addEventListener("click", () => deleteService(service.id));
 
         actions.appendChild(editButton);
         actions.appendChild(deleteButton);
 
         item.appendChild(info);
         item.appendChild(actions);
-
         managedServicesList.appendChild(item);
     });
 }
 
-
 function saveManagedService() {
 
-    const name =
-        serviceNameInput.value.trim();
-
-    const description =
-        serviceDescriptionInput.value.trim();
-
-    const price =
-        Number(servicePriceInput.value);
-
+    const name = serviceNameInput.value.trim();
+    const description = serviceDescriptionInput.value.trim();
+    const price = Number(servicePriceInput.value);
 
     if (!name) {
-
         alert("Please enter a service name.");
         serviceNameInput.focus();
         return;
     }
 
-
-    if (
-        !Number.isFinite(price) ||
-        price < 0
-    ) {
-
+    if (!Number.isFinite(price) || price < 0) {
         alert("Please enter a valid price.");
         servicePriceInput.focus();
         return;
     }
 
+    if (editingServiceId !== null) {
 
-    if (editingServiceId) {
-
-        const service =
-            services.find(
-                item =>
-                    item.id === editingServiceId
-            );
+        const service = services.find(item => item.id === editingServiceId);
 
         if (service) {
-
             service.name = name;
             service.description = description;
             service.price = price;
@@ -576,98 +333,48 @@ function saveManagedService() {
         });
     }
 
-
     saveServices();
     renderServices();
     renderManagedServices();
     closeServiceForm();
 }
 
-
 function deleteService(id) {
 
-    const service =
-        services.find(
-            item => item.id === id
-        );
+    const service = services.find(item => item.id === id);
+    if (!service) return;
 
-    if (!service) {
-        return;
-    }
+    if (!confirm(`Delete "${service.name}"?`)) return;
 
-
-    const confirmed =
-        confirm(
-            `Delete "${service.name}"?`
-        );
-
-
-    if (!confirmed) {
-        return;
-    }
-
-
-    services =
-        services.filter(
-            item => item.id !== id
-        );
-
-
+    services = services.filter(item => item.id !== id);
     saveServices();
     renderServices();
     renderManagedServices();
 }
 
-
 if (addServiceButton) {
-
-    addServiceButton.addEventListener(
-        "click",
-        () => openServiceForm()
-    );
+    addServiceButton.addEventListener("click", () => openServiceForm());
 }
-
 
 if (cancelServiceButton) {
-
-    cancelServiceButton.addEventListener(
-        "click",
-        closeServiceForm
-    );
+    cancelServiceButton.addEventListener("click", closeServiceForm);
 }
-
 
 if (saveServiceButton) {
-
-    saveServiceButton.addEventListener(
-        "click",
-        saveManagedService
-    );
+    saveServiceButton.addEventListener("click", saveManagedService);
 }
-
 
 if (servicePriceInput) {
-
-    servicePriceInput.addEventListener(
-        "keydown",
-        event => {
-
-            if (event.key === "Enter") {
-                saveManagedService();
-            }
-        }
-    );
+    servicePriceInput.addEventListener("keydown", event => {
+        if (event.key === "Enter") saveManagedService();
+    });
 }
-
 
 loadServices();
 renderServices();
 renderManagedServices();
 
 
-// ================================
-// UPDATE BILL
-// ================================
 // ================================
 // UPDATE BILL
 // ================================
@@ -700,18 +407,15 @@ function updateBill() {
 
     cart.forEach((item, index) => {
 
-        const itemTotal =
-            item.price * item.quantity;
+        const itemTotal = item.price * item.quantity;
 
         total += itemTotal;
         itemCount += item.quantity;
 
 
-        const billItem =
-            document.createElement("div");
+        const billItem = document.createElement("div");
 
-        billItem.className =
-            "bill-item";
+        billItem.className = "bill-item";
 
         billItem.innerHTML = `
 
@@ -764,11 +468,8 @@ function updateBill() {
     });
 
 
-    totalAmount.textContent =
-        `₹${total}`;
-
-    totalItems.textContent =
-        itemCount;
+    totalAmount.textContent = `₹${total}`;
+    totalItems.textContent = itemCount;
 }
 
 
@@ -826,17 +527,14 @@ printButton.addEventListener("click", () => {
 
     if (cart.length === 0) {
 
-        alert(
-            "Please add at least one service before printing."
-        );
+        alert("Please add at least one service before printing.");
 
         return;
     }
 
 
     const name =
-        customerName.value.trim() ||
-        "Walk-in Customer";
+        customerName.value.trim() || "Walk-in Customer";
 
 
     let total = 0;
@@ -862,7 +560,6 @@ printButton.addEventListener("click", () => {
                             ? `<br><small>${item.description}</small>`
                             : ""
                     }
-
                 </td>
 
                 <td>${item.quantity}</td>
@@ -875,12 +572,11 @@ printButton.addEventListener("click", () => {
     });
 
 
-    const printWindow =
-        window.open(
-            "",
-            "_blank",
-            "width=700,height=800"
-        );
+    const printWindow = window.open(
+        "",
+        "_blank",
+        "width=700,height=800"
+    );
 
 
     printWindow.document.write(`
@@ -991,13 +687,9 @@ printButton.addEventListener("click", () => {
                     <thead>
 
                         <tr>
-
                             <th>Service</th>
-
                             <th>Qty</th>
-
                             <th>Amount</th>
-
                         </tr>
 
                     </thead>
@@ -1053,9 +745,7 @@ printButton.addEventListener("click", () => {
 // 🔐 SECURE INCOME MANAGER
 // ==================================================
 
-const incomeLocked =
-    document.getElementById("incomeLocked");
-
+const incomeLocked = document.getElementById("incomeLocked");
 const incomePasswordBox =
     document.getElementById("incomePasswordBox");
 
@@ -1101,7 +791,6 @@ const PASSWORD_CHECK_KEY =
 
 
 let encryptionKey = null;
-
 let incomeData = [];
 
 
@@ -1109,24 +798,19 @@ let incomeData = [];
 // PASSWORD HELPERS
 // ================================
 
-const encoder =
-    new TextEncoder();
-
-const decoder =
-    new TextDecoder();
+const encoder = new TextEncoder();
+const decoder = new TextDecoder();
 
 
 function arrayBufferToBase64(buffer) {
 
-    const bytes =
-        new Uint8Array(buffer);
+    const bytes = new Uint8Array(buffer);
 
     let binary = "";
 
     bytes.forEach(byte => {
 
-        binary +=
-            String.fromCharCode(byte);
+        binary += String.fromCharCode(byte);
 
     });
 
@@ -1140,18 +824,13 @@ function base64ToArrayBuffer(base64) {
         atob(base64);
 
     const bytes =
-        new Uint8Array(
-            binary.length
-        );
+        new Uint8Array(binary.length);
 
-    for (
-        let i = 0;
-        i < binary.length;
-        i++
-    ) {
+    for (let i = 0; i < binary.length; i++) {
 
         bytes[i] =
             binary.charCodeAt(i);
+
     }
 
     return bytes.buffer;
@@ -1162,10 +841,7 @@ function base64ToArrayBuffer(base64) {
 // CREATE ENCRYPTION KEY
 // ================================
 
-async function createKey(
-    password,
-    salt
-) {
+async function createKey(password, salt) {
 
     const passwordKey =
         await crypto.subtle.importKey(
@@ -1195,10 +871,7 @@ async function createKey(
 
         false,
 
-        [
-            "encrypt",
-            "decrypt"
-        ]
+        ["encrypt", "decrypt"]
 
     );
 
@@ -1209,10 +882,7 @@ async function createKey(
 // ENCRYPT DATA
 // ================================
 
-async function encryptIncome(
-    data,
-    key
-) {
+async function encryptIncome(data, key) {
 
     const iv =
         crypto.getRandomValues(
@@ -1239,13 +909,11 @@ async function encryptIncome(
 
     return {
 
-        iv:
-            arrayBufferToBase64(iv),
+        iv: arrayBufferToBase64(iv),
 
-        data:
-            arrayBufferToBase64(
-                encrypted
-            )
+        data: arrayBufferToBase64(
+            encrypted
+        )
 
     };
 
@@ -1256,10 +924,7 @@ async function encryptIncome(
 // DECRYPT DATA
 // ================================
 
-async function decryptIncome(
-    record,
-    key
-) {
+async function decryptIncome(record, key) {
 
     const decrypted =
         await crypto.subtle.decrypt(
@@ -1295,9 +960,7 @@ async function decryptIncome(
 // INITIALIZE PASSWORD
 // ================================
 
-async function setupPassword(
-    password
-) {
+async function setupPassword(password) {
 
     const salt =
         crypto.getRandomValues(
@@ -1314,8 +977,7 @@ async function setupPassword(
 
     const verificationData = {
 
-        message:
-            "TAILOR_PASSWORD_OK"
+        message: "TAILOR_PASSWORD_OK"
 
     };
 
@@ -1380,7 +1042,6 @@ async function unlockIncome() {
     const password =
         incomePassword.value;
 
-
     if (!password) {
 
         passwordMessage.textContent =
@@ -1411,17 +1072,13 @@ async function unlockIncome() {
             }
 
 
-            await setupPassword(
-                password
-            );
+            await setupPassword(password);
 
             showIncome();
 
-            passwordMessage.textContent =
-                "";
+            passwordMessage.textContent = "";
 
-            incomePassword.value =
-                "";
+            incomePassword.value = "";
 
             return;
         }
@@ -1475,11 +1132,9 @@ async function unlockIncome() {
 
         showIncome();
 
-        passwordMessage.textContent =
-            "";
+        passwordMessage.textContent = "";
 
-        incomePassword.value =
-            "";
+        incomePassword.value = "";
 
     }
 
@@ -1491,6 +1146,8 @@ async function unlockIncome() {
     }
 
 }
+
+
 // ================================
 // LOAD INCOME
 // ================================
@@ -1570,11 +1227,9 @@ async function saveIncome() {
 
         JSON.stringify({
 
-            salt:
-                stored.salt,
+            salt: stored.salt,
 
-            entries:
-                encrypted
+            entries: encrypted
 
         })
 
@@ -1630,7 +1285,6 @@ function lockIncome() {
     encryptionKey = null;
 
     incomeData = [];
-
 
     incomeContent.classList.add(
         "hidden"
@@ -1726,7 +1380,6 @@ function displayIncome() {
     if (!incomeMonth.value) {
 
         return;
-
     }
 
 
@@ -1780,7 +1433,6 @@ function displayIncome() {
         `;
 
         return;
-
     }
 
 
@@ -1885,7 +1537,6 @@ addIncomeButton.addEventListener(
             );
 
             return;
-
         }
 
 
@@ -1970,14 +1621,11 @@ async function deleteIncome(id) {
 const saveBillAsIncome =
     document.createElement("button");
 
-
 saveBillAsIncome.id =
     "saveBillIncomeButton";
 
-
 saveBillAsIncome.className =
     "print-button";
-
 
 saveBillAsIncome.textContent =
     "💰 Save Bill as Income";
@@ -2068,22 +1716,17 @@ saveBillAsIncome.addEventListener(
 const shareBillButton =
     document.createElement("button");
 
-
 shareBillButton.id =
     "shareBillButton";
-
 
 shareBillButton.className =
     "print-button";
 
-
 shareBillButton.textContent =
     "📤 Share Bill";
 
-
 shareBillButton.style.marginTop =
     "8px";
-
 
 saveBillAsIncome.insertAdjacentElement(
     "afterend",
@@ -2102,29 +1745,22 @@ shareBillButton.addEventListener(
             );
 
             return;
-
         }
-
 
         const name =
             customerName.value.trim() ||
             "Customer";
 
-
         let total = 0;
-
 
         let message =
             "🧵 *Tailoring Bill*\n\n";
 
-
         message +=
             `Hello ${name},\n\n`;
 
-
         message +=
             "Here is your tailoring bill:\n\n";
-
 
         cart.forEach(item => {
 
@@ -2132,31 +1768,23 @@ shareBillButton.addEventListener(
                 item.price *
                 item.quantity;
 
-
             total += itemTotal;
-
 
             message +=
                 `${item.name}`;
-
 
             if (item.description) {
 
                 message +=
                     ` (${item.description})`;
-
             }
-
 
             message +=
                 ` × ${item.quantity} — ₹${itemTotal}\n`;
-
         });
-
 
         message +=
             `\n*Total Amount: ₹${total}*`;
-
 
         message +=
             "\n\nThank you for choosing us! ❤️";
@@ -2196,7 +1824,6 @@ shareBillButton.addEventListener(
                     message
                 );
 
-
                 alert(
                     "Bill copied! You can paste it into WhatsApp or Messages."
                 );
@@ -2222,6 +1849,5 @@ shareBillButton.addEventListener(
 lockIncomeButton.classList.add(
     "hidden"
 );
-
 
 updateBill();
