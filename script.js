@@ -16,6 +16,30 @@ const supabaseClient =
 
 console.log("☁️ Supabase connected");
 // ================================
+// SUPABASE AUTHENTICATION
+// ================================
+
+let currentUser = null;
+
+async function checkSupabaseLogin() {
+    const { data, error } = await supabaseClient.auth.getUser();
+
+    if (error) {
+        console.error("Auth check failed:", error);
+        return;
+    }
+
+    currentUser = data.user;
+
+    if (currentUser) {
+        console.log("🔐 Logged in as:", currentUser.email);
+    } else {
+        console.log("🔒 No user logged in");
+    }
+}
+
+checkSupabaseLogin();
+// ================================
 // TAILORING SERVICES
 // ================================
 
