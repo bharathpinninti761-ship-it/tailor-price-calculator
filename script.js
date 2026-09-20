@@ -1422,6 +1422,137 @@ saveBillAsIncome.addEventListener(
 
     }
 );
+// ================================
+// SHARE BILL
+// ================================
+
+const shareBillButton =
+    document.createElement("button");
+
+shareBillButton.id =
+    "shareBillButton";
+
+shareBillButton.className =
+    "print-button";
+
+shareBillButton.textContent =
+    "📤 Share Bill";
+
+shareBillButton.style.marginTop =
+    "8px";
+
+saveBillAsIncome.insertAdjacentElement(
+    "afterend",
+    shareBillButton
+);
+
+
+shareBillButton.addEventListener(
+    "click",
+    async () => {
+
+        if (cart.length === 0) {
+
+            alert(
+                "Please add services to the bill first."
+            );
+
+            return;
+        }
+
+        const name =
+            customerName.value.trim() ||
+            "Customer";
+
+        let total = 0;
+
+        let message =
+            "🧵 *Tailoring Bill*\n\n";
+
+        message +=
+            `Hello ${name},\n\n`;
+
+        message +=
+            "Here is your tailoring bill:\n\n";
+
+        cart.forEach(item => {
+
+            const itemTotal =
+                item.price *
+                item.quantity;
+
+            total += itemTotal;
+
+            message +=
+                `${item.name}`;
+
+            if (item.description) {
+
+                message +=
+                    ` (${item.description})`;
+            }
+
+            message +=
+                ` × ${item.quantity} — ₹${itemTotal}\n`;
+        });
+
+        message +=
+            `\n*Total Amount: ₹${total}*`;
+
+        message +=
+            "\n\nThank you for choosing us! ❤️";
+
+
+        if (navigator.share) {
+
+            try {
+
+                await navigator.share({
+
+                    title:
+                        "Tailoring Bill",
+
+                    text:
+                        message
+
+                });
+
+            }
+
+            catch (error) {
+
+                console.log(
+                    "Share cancelled."
+                );
+
+            }
+
+        }
+
+        else {
+
+            try {
+
+                await navigator.clipboard.writeText(
+                    message
+                );
+
+                alert(
+                    "Bill copied! You can paste it into WhatsApp or Messages."
+                );
+
+            }
+
+            catch (error) {
+
+                alert(message);
+
+            }
+
+        }
+
+    }
+);
 
 
 // ================================
