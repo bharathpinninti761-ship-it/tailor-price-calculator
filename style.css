@@ -968,3 +968,327 @@ footer p {
     }
 
 }
+/* =========================================
+   SERVICE MANAGER
+========================================= */
+
+.service-manager-section {
+    margin-top: 30px;
+}
+
+
+/* Header */
+
+.service-manager-section .section-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+
+/* Add Service Button */
+
+.manager-add-button {
+    border: none;
+    background: #f59e0b;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+    white-space: nowrap;
+}
+
+.manager-add-button:hover {
+    background: #d97706;
+    transform: translateY(-1px);
+}
+
+.manager-add-button:active {
+    transform: translateY(0);
+}
+
+
+/* Service Form */
+
+.service-form-box {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 24px;
+}
+
+
+.service-form-box.hidden {
+    display: none;
+}
+
+
+.service-form-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 18px;
+}
+
+
+.service-form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+
+.service-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+
+.service-form-field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+}
+
+
+.service-form-field input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    background: white;
+    color: #111827;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+
+.service-form-field input:focus {
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12);
+}
+
+
+/* Form Buttons */
+
+.service-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+
+.primary-button,
+.secondary-button {
+    border: none;
+    padding: 10px 16px;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+
+.primary-button {
+    background: #f59e0b;
+    color: white;
+}
+
+
+.primary-button:hover {
+    background: #d97706;
+}
+
+
+.secondary-button {
+    background: #f3f4f6;
+    color: #374151;
+    border: 1px solid #d1d5db;
+}
+
+
+.secondary-button:hover {
+    background: #e5e7eb;
+}
+
+
+/* Managed Services */
+
+.managed-services-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+.managed-service-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+
+    padding: 16px 18px;
+
+    transition: 0.2s ease;
+}
+
+
+.managed-service-item:hover {
+    border-color: #d1d5db;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+
+/* Service Information */
+
+.managed-service-info {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex: 1;
+    min-width: 0;
+}
+
+
+.managed-service-info strong {
+    color: #111827;
+    font-size: 15px;
+    min-width: 190px;
+}
+
+
+.managed-service-info span:not(.managed-service-price) {
+    color: #6b7280;
+    font-size: 13px;
+}
+
+
+.managed-service-price {
+    color: #111827;
+    font-size: 15px;
+    font-weight: 700;
+    min-width: 70px;
+}
+
+
+/* Edit / Delete Buttons */
+
+.managed-service-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+
+.managed-service-actions .secondary-button {
+    padding: 8px 12px;
+    font-size: 13px;
+}
+
+
+/* Empty State */
+
+.empty-state {
+    text-align: center;
+    padding: 30px 20px;
+    color: #6b7280;
+}
+
+
+.empty-state h3 {
+    margin: 8px 0 5px;
+    color: #374151;
+}
+
+
+.empty-state p {
+    margin: 0;
+    font-size: 14px;
+}
+
+
+.empty-icon {
+    font-size: 30px;
+}
+
+
+/* =========================================
+   MOBILE SERVICE MANAGER
+========================================= */
+
+@media (max-width: 700px) {
+
+    .service-manager-section .section-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+
+    .manager-add-button {
+        width: 100%;
+    }
+
+
+    .service-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .service-form-actions {
+        flex-direction: column-reverse;
+    }
+
+
+    .service-form-actions button {
+        width: 100%;
+    }
+
+
+    .managed-service-item {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+
+    .managed-service-info {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 6px 12px;
+    }
+
+
+    .managed-service-info strong {
+        min-width: 0;
+    }
+
+
+    .managed-service-price {
+        text-align: right;
+    }
+
+
+    .managed-service-actions {
+        width: 100%;
+    }
+
+
+    .managed-service-actions button {
+        flex: 1;
+    }
+
+}
