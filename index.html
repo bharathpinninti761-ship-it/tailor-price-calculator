@@ -555,7 +555,121 @@
         </section>
 
 
+<!-- ================================
+     SERVICE MANAGER
+================================ -->
 
+<section class="section-card service-manager-section">
+
+    <div class="section-header">
+
+        <div>
+            <div class="section-label">SETTINGS</div>
+
+            <h2>Service Manager</h2>
+
+            <p class="section-description">
+                Add, edit or remove tailoring services without changing the code.
+            </p>
+        </div>
+
+        <button
+            id="addServiceButton"
+            class="manager-add-button">
+            + Add Service
+        </button>
+
+    </div>
+
+
+    <!-- ADD / EDIT SERVICE FORM -->
+
+    <div
+        id="serviceFormBox"
+        class="service-form-box hidden">
+
+        <div class="service-form-title">
+            <span id="serviceFormTitle">
+                Add New Service
+            </span>
+        </div>
+
+
+        <div class="service-form-grid">
+
+            <div class="service-form-field">
+
+                <label for="serviceName">
+                    Service Name
+                </label>
+
+                <input
+                    type="text"
+                    id="serviceName"
+                    placeholder="Example: Pant Alteration">
+
+            </div>
+
+
+            <div class="service-form-field">
+
+                <label for="serviceDescription">
+                    Description
+                </label>
+
+                <input
+                    type="text"
+                    id="serviceDescription"
+                    placeholder="Example: Waist and length">
+
+            </div>
+
+
+            <div class="service-form-field">
+
+                <label for="servicePrice">
+                    Price (₹)
+                </label>
+
+                <input
+                    type="number"
+                    id="servicePrice"
+                    min="0"
+                    placeholder="150">
+
+            </div>
+
+        </div>
+
+
+        <div class="service-form-actions">
+
+            <button
+                id="cancelServiceButton"
+                class="secondary-button">
+                Cancel
+            </button>
+
+            <button
+                id="saveServiceButton"
+                class="primary-button">
+                Save Service
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- SERVICE LIST -->
+
+    <div
+        id="managedServicesList"
+        class="managed-services-list">
+
+    </div>
+
+</section>
         <!-- ========================= -->
         <!-- INCOME MANAGER -->
         <!-- ========================= -->
