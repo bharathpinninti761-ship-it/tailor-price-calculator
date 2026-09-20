@@ -114,6 +114,113 @@ function renderServices() {
         const serviceCard =
             document.createElement("div");
 
+        serviceCard.className = "service";
+
+
+        const serviceInfo =
+            document.createElement("div");
+
+        serviceInfo.className = "service-info";
+
+
+        const serviceIcon =
+            document.createElement("div");
+
+        serviceIcon.className = "service-icon";
+
+        serviceIcon.textContent = "🧵";
+
+
+        const serviceDetails =
+            document.createElement("div");
+
+
+        const serviceName =
+            document.createElement("h3");
+
+        serviceName.textContent =
+            service.name;
+
+
+        const serviceDescription =
+            document.createElement("p");
+
+        serviceDescription.textContent =
+            service.description || "";
+
+
+        const servicePrice =
+            document.createElement("strong");
+
+        servicePrice.textContent =
+            `₹${service.price}`;
+
+
+        serviceDetails.appendChild(
+            serviceName
+        );
+
+        serviceDetails.appendChild(
+            serviceDescription
+        );
+
+        serviceDetails.appendChild(
+            servicePrice
+        );
+
+
+        serviceInfo.appendChild(
+            serviceIcon
+        );
+
+        serviceInfo.appendChild(
+            serviceDetails
+        );
+
+
+        const addButton =
+            document.createElement("button");
+
+        addButton.className =
+            "add-button";
+
+        addButton.setAttribute(
+            "aria-label",
+            `Add ${service.name}`
+        );
+
+        addButton.textContent = "+";
+
+
+        addButton.addEventListener(
+            "click",
+            () => addServiceToBill(service)
+        );
+
+
+        serviceCard.appendChild(
+            serviceInfo
+        );
+
+        serviceCard.appendChild(
+            addButton
+        );
+
+
+        serviceListContainer.appendChild(
+            serviceCard
+        );
+
+    });
+}
+
+    serviceListContainer.innerHTML = "";
+
+    services.forEach((service) => {
+
+        const serviceCard =
+            document.createElement("div");
+
         serviceCard.className = "service-card";
 
         const serviceInfo =
