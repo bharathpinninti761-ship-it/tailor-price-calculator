@@ -1,4 +1,21 @@
 // ================================
+// SUPABASE CLOUD CONNECTION
+// ================================
+
+const SUPABASE_URL =
+    "https://weupvizwcsaqnyjwpbe.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_JTna5w-GxrLLnzJGLCvikg_r33GsFlM";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+console.log("☁️ Supabase connected");
+// ================================
 // TAILORING SERVICES
 // ================================
 
